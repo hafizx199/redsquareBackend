@@ -13,7 +13,7 @@ function fizzBuzz(n) {
     }
 }
 
-// Read the value of n in the command line 
+// Input the value of n in the command line 
 const n = process.argv[2] || 15;
 
 
