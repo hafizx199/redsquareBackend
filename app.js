@@ -22,3 +22,7 @@ app.get('/endpoint1', (req, res) => {
         res.json({ hash: randomHash });
     }, 1000);
 });
+
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+});
