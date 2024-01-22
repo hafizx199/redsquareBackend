@@ -23,6 +23,28 @@ app.get('/endpoint1', (req, res) => {
     }, 1000);
 });
 
+// Endpoint #2: Keeps requesting hash from Endpoint #1 until a valid hash is received
+//Develop an endpoint #2, where it will be keep requesting a hash string from endpoint #1, and endpoint #2 shall only return a success response body when last 1 character of the hash is a number and it is an odd number
+app.get('/endpoint2', (req, res) => {
+    function requestHash() {
+        setTimeout(() => {
+            const randomHash = generateRandomHash();
+            const lastChar = randomHash.charAt(randomHash.length - 1);
+            
+            // Check if the last character is a number and an odd number
+            //Checks whether a value is NaN (not a number) and converts the last character of the `randomHash` string into an integer
+            //It checks if the last character of `randomHash` is a number and an odd number; if true, it responds with success, otherwise, it retries to get a valid hash.
+            if (!isNaN(lastChar) && parseInt(lastChar) % 2 !== 0) {
+                res.json({ success: true, hash: randomHash });
+            } else {
+                requestHash(); // Retry until a valid hash is received
+            }
+        }, 1000);
+    }
+
+    requestHash();
+});
+
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
